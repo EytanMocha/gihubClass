@@ -6,14 +6,14 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 try:
-    user_id = 1   #local id for   test
+    user_id = 1   #local id for post  test
 
     res = requests.post(f'http://127.0.0.1:5000/users/{user_id}', json={"user_name":"john"})
     print(res.json())
     req = requests.get(f'http://127.0.0.1:5000/users/{user_id}')
     print(f"Status Code: {req.status_code}, Content: {req.json()}")
 
-
+# createing user
     def select_user(user_i):
         schema_name = 'freedb_Eitan123123'
         # Establishing a connection to DB
