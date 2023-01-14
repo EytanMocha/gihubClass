@@ -6,11 +6,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 try:
-    user_id = 1
+    user_id = 1   #local id for   test
+
     res = requests.post(f'http://127.0.0.1:5000/users/{user_id}', json={"user_name":"john"})
-
     print(res.json())
-
     req = requests.get(f'http://127.0.0.1:5000/users/{user_id}')
     print(f"Status Code: {req.status_code}, Content: {req.json()}")
 
