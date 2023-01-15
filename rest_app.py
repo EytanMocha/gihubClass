@@ -1,6 +1,5 @@
 from flask import Flask, request
-import datetime
-from DB_connector import *
+from db_connector import *
 
 app = Flask(__name__)
 
