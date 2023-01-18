@@ -1,3 +1,6 @@
+import os
+import signal
+
 from flask import Flask, request
 from db_connector import *
 
@@ -7,6 +10,10 @@ app = Flask(__name__)
 # supported methods
 @app.route('/users/<user_id>', methods=['GET', 'POST', 'DELETE', 'PUT'])
 @app.route('/users/', defaults={'user_id': None})
+@app.route('/stop_server')
+def stop_server():
+    os.kill(os.getpid(), signal.CTRL_C_EVENT)
+    return 'Server stopped'
 def user(user_id):
     if request.method == 'POST':
         # getting the json data payload from request

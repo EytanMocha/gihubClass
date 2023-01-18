@@ -1,3 +1,6 @@
+import os
+import signal
+
 from flask import Flask
 
 from db_connector import select_user
@@ -5,6 +8,10 @@ from db_connector import select_user
 app = Flask(__name__)
 
 @app.route("/users/get_user_data/<user_id>")
+@app.route('/stop_server')
+def stop_server():
+    os.kill(os.getpid(), signal.CTRL_C_EVENT)
+    return 'Server stopped'
 def get_user(user_id):
     user = select_user(user_id)
     if user == None:
