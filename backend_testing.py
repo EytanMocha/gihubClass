@@ -6,10 +6,10 @@ idOfTheUser = 1  # local id for post  test
 
 res = requests.post(f'http://127.0.0.1:5000/users/{idOfTheUser}', json={"user_name": "john"})
 print(res.json())
+
+
 req = requests.get(f'http://127.0.0.1:5000/users/{idOfTheUser}')
 print(f"Status Code: {req.status_code}, Content: {req.json()}")
-
-
 
 
 

@@ -5,13 +5,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
-# try:
+user_id = 1
+
 
 # createing user
-res = requests.post('http://127.0.0.1:5000/data/1', json={"user_name":"john"})
-if res.ok:
-    print(res.json())
-res = requests.get('http://127.0.0.1:5000/users/1')
+res = requests.post(f'http://127.0.0.1:5000/data/{user_id}', json={"user_name":"john"})
+if res.ok:print(res.json())
+res = requests.get(f'http://127.0.0.1:5000/users/{user_id}')
 if res.ok:
     print(res.content)
 def select_user(user_id):
@@ -31,13 +31,12 @@ def select_user(user_id):
     cursor.close()
     conn.close()
     return user
-# print("______________________________")
-# print(select_user(id))
-#
-# driver = webdriver.Chrome(service=Service("C:\\Users\IBI-LAP\Downloads\chromedriver_win32\chromedriver"))
-# driver.get(f"http://127.0.0.1:5001/users/get_user_data/{user_id}")
-# print(driver.title)
-# tag_name = driver.find_element(By.ID, "user")
-# print(tag_name.accessible_name)
-# # except :
-# print("faild")
+print("______________________________")
+print(select_user(id))
+
+driver = webdriver.Chrome(service=Service("C:\\Users\IBI-LAP\Downloads\chromedriver_win32\chromedriver"))
+driver.get(f"http://127.0.0.1:5001/users/get_user_data/{user_id}")
+print(driver.title)
+tag_name = driver.find_element(By.ID, "user")
+print(tag_name.accessible_name)
+raise  Exception("test failed")
