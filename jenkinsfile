@@ -1,0 +1,93 @@
+pipeline {
+    agent any
+    stages {
+        stage('checkout') {
+            steps {
+                script {
+                    properties([pipelineTriggers([pollSCM('* * * * *')])])
+                }
+                git 'https://github.com/EytanMocha/gihubClass.git'
+            }
+        }
+        stage('run web_app') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/web_app.py'
+                    } else
+                        sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/web_app.py'
+                    }
+                }
+            }
+        stage('run rest_app') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/web_app.py'
+                    } else
+                        sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/rest_app.py'
+                    }
+                }
+            }
+
+        stage('run frontend _testing') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/frontend _testing.py'
+                    } else
+                        sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/frontend _testing.py'
+                    }
+                }
+            }
+         stage('run combined_testing') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/combined_testing.py'
+                    } else
+                        sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/combined_testing.py'
+                    }
+                }
+            }
+         stage('run backend_testing') {
+        steps {
+            script {
+                if (checkOs() == 'Wbackend_testingindows') {
+                    bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/backend_testing.py'
+                } else
+                    sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/backend_testing.py'
+                }
+            }
+        }
+
+         stage('run clean_environemnt') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/clean_environemnt.py'
+                    } else
+                        sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/clean_environemnt.py'
+                    }
+                }
+            }
+        }
+
+    }
+
+
+
+def checkOs(){
+    if (isUnix()) {
+        def uname = sh script: 'uname', returnStdout: true
+        if (uname.startsWith("Darwin")) {
+            return "Macos"
+        }
+        else {
+            return "Linux"
+        }
+    }
+    else {
+        return "Windows"
+    }
+}
