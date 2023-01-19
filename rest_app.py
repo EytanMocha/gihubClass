@@ -8,12 +8,11 @@ app = Flask(__name__)
 
 
 # supported methods
+
+@app.route('/stop_server')
 @app.route('/users/<user_id>', methods=['GET', 'POST', 'DELETE', 'PUT'])
 @app.route('/users/', defaults={'user_id': None})
-@app.route('/stop_server')
-def stop_server():
-    os.kill(os.getpid(), signal.CTRL_C_EVENT)
-    return 'Server stopped'
+
 def user(user_id):
     if request.method == 'POST':
         # getting the json data payload from request
@@ -51,5 +50,7 @@ def user(user_id):
             return {'status': 'error', 'reason': 'no such id'} ,500
         return user, 200 # status code
 
-
+def stop_server():
+    os.kill(os.getpid(), signal.CTRL_C_EVENT)
+    return 'Server stopped'
 app.run(host='127.0.0.1', debug=True, port=5000)
