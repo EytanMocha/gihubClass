@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 # supported methods
 
-@app.route('/stop_server')
 @app.route('/users/<user_id>', methods=['GET', 'POST', 'DELETE', 'PUT'])
 @app.route('/users/', defaults={'user_id': None})
 
@@ -50,6 +49,7 @@ def user(user_id):
             return {'status': 'error', 'reason': 'no such id'} ,500
         return user, 200 # status code
 
+@app.route('/stop_server')
 def stop_server():
     os.kill(os.getpid(), signal.CTRL_C_EVENT)
     return 'Server stopped'

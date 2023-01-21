@@ -53,7 +53,7 @@ pipeline {
          stage('run backend_testing') {
         steps {
             script {
-                if (checkOs() == 'Wbackend_testingindows') {
+                if (checkOs() == 'Windows') {
                     bat 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/backend_testing.py'
                 } else
                     sh 'start /min C:/Users/IBI-LAP/AppData/Local/Programs/Python/Python311/python.exe C:/Users/IBI-LAP/PycharmProjects/gihubClass/backend_testing.py'
